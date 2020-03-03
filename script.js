@@ -8,8 +8,8 @@ function createTodo() {
     const text = document.createElement('span');
     text.classList.add('text');
 
-    const newTodo = input.value;
-    text.append(newTodo);
+    //const newTodo = input.value;
+    text.append(/*newTodo*/input.value);
 
     const checkbox = document.createElement('input');
     checkbox.setAttribute('type', 'checkbox');
@@ -18,8 +18,10 @@ function createTodo() {
     delBtn.classList.add('delete');
     delBtn.innerText = 'DEL';
 
-    ulItems.appendChild(li).append(checkbox, text, delBtn)
+    ulItems.appendChild(li).append(checkbox, text, delBtn);
     input.value = '';
+    deleteItem(delBtn);
+    checkingItem(checkbox);
 
 }
 
@@ -29,4 +31,19 @@ input.addEventListener('keydown', (event) => {
     }
 });
 
+function deleteItem(btn) {
+    btn.addEventListener('click', () => {
+      btn.parentElement.remove();
+    })
+}
 
+function checkingItem(checkbox) {
+    const nextElem = checkbox.nextElementSibling;
+    checkbox.addEventListener('change', () => {
+        if(nextElem.classList.contains("lineThrow")) {
+            nextElem.classList.remove('lineThrow');
+        } else {
+            nextElem.classList.add('lineThrow');
+        }
+    })
+}
