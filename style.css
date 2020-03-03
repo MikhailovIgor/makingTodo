@@ -4,8 +4,8 @@
 body {
     margin: 0;
     min-width: 400px;
-    background: lightgray;
-     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    background: #f5f5f5;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 h1 {
     text-align: center;
@@ -78,4 +78,7 @@ footer button {
 }
 .lineThrow {
     text-decoration: line-through;
+}
+.visually-hidden {
+    visibility: hidden;
 }

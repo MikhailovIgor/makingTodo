@@ -34,6 +34,7 @@ input.addEventListener('keydown', (event) => {
 function deleteItem(btn) {
     btn.addEventListener('click', () => {
       btn.parentElement.remove();
+        document.getElementById('clear').classList.add('visually-hidden');
     })
 }
 
@@ -42,8 +43,10 @@ function checkingItem(checkbox) {
     checkbox.addEventListener('change', () => {
         if(nextElem.classList.contains("lineThrow")) {
             nextElem.classList.remove('lineThrow');
+            document.getElementById('clear').classList.add('visually-hidden');
         } else {
             nextElem.classList.add('lineThrow');
+            document.getElementById('clear').classList.remove('visually-hidden');
         }
     })
 }
