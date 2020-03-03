@@ -24,11 +24,8 @@ function createTodo() {
 }
 
 input.addEventListener('keydown', (event) => {
-    if(event.code === "Enter") {
-        if(input.value != '') {
-            createTodo();
-        }
-
+    if(event.code === "Enter" && input.value != '') {
+        createTodo();
     }
 });
 
