@@ -3,7 +3,7 @@
 /*}*/
 body {
     margin: 0;
-    min-width: 300px;
+    min-width: 400px;
     background: lightgray;
     font-family: HelveticaNeueCyr;
 }
@@ -11,7 +11,7 @@ h1 {
     text-align: center;
     font-size: 100px;
     color: rgba(175, 47, 47, 0.15);
-   }
+}
 #root {
     position: absolute;
     width: 100%;
@@ -27,9 +27,14 @@ h1 {
     justify-content: space-between;
     align-items: center;
 }
+.item input {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+}
 
 input {
-    width: 300px;
+    width: 550px;
     height: 30px;
 }
 ul {
@@ -41,11 +46,32 @@ ul {
     border-radius: 3px;
     padding: 5px;
     margin-bottom: 3px;
-    width: 300px;
-    height: 40px;
+    width: 550px;
+    height: 30px;
 }
 .done {
     width: 30px;
     height: 30px;
     border-radius: 50%;
+}
+.counter {
+    flex-basis: 25%;
+}
+#clear {
+    flex-basis: 25%;
+    border: 0;
+    text-decoration: none;
+    background: none;
+    color: inherit;
+}
+#clear:hover {
+    text-decoration: underline;
+}
+footer {
+    width: 550px;
+    display: flex;
+    justify-content: space-between;
+}
+footer button {
+    cursor: pointer;
 }
