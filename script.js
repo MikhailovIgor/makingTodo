@@ -1,15 +1,15 @@
 const input = document.getElementById('mainInput');
 const ulItems = document.getElementById('ulItems');
 
-function createTodo() {
+const taskList = [];
+
+function createTodo(value) {
     const li = document.createElement('li');
     li.classList.add('item');
 
     const text = document.createElement('span');
     text.classList.add('text');
-
-    //const newTodo = input.value;
-    text.append(/*newTodo*/input.value);
+    text.append(value);
 
     const checkbox = document.createElement('input');
     checkbox.setAttribute('type', 'checkbox');
@@ -19,26 +19,27 @@ function createTodo() {
     delBtn.innerText = 'DEL';
 
     ulItems.appendChild(li).append(checkbox, text, delBtn);
-    input.value = '';
     deleteItem(delBtn);
-    checkingItem(checkbox);
-
+    checkedItem(checkbox);
 }
 
 input.addEventListener('keydown', (event) => {
-    if(event.code === "Enter" && input.value != '') {
-        createTodo();
+    if(event.code === "Enter" && input.value !== '') {
+        createTodo(input.value);
+        localStorage.setItem('items', ulItems.innerHTML);
+        input.value = '';
     }
 });
 
 function deleteItem(btn) {
     btn.addEventListener('click', () => {
       btn.parentElement.remove();
-        document.getElementById('clear').classList.add('visually-hidden');
+        localStorage.setItem('items', ulItems.innerHTML);
+        //document.getElementById('clear').classList.add('visually-hidden');
     })
 }
 
-function checkingItem(checkbox) {
+function checkedItem(checkbox) {
     const nextElem = checkbox.nextElementSibling;
     checkbox.addEventListener('change', () => {
         if(nextElem.classList.contains("lineThrow")) {
@@ -50,3 +51,11 @@ function checkingItem(checkbox) {
         }
     })
 }
+
+function loadTodoFromStorage() {
+    if(localStorage.getItem('items')) {
+        ulItems.innerHTML = localStorage.getItem('items');
+    }
+}
+
+document.addEventListener('DOMContentLoaded', loadTodoFromStorage);
