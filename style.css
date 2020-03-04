@@ -1,6 +1,3 @@
-/** {*/
-/*      box-sizing: border-box;*/
-/*}*/
 body {
     margin: 0;
     min-width: 400px;
@@ -33,7 +30,6 @@ h1 {
     height: 30px;
     border-radius: 50%;
 }
-
 input {
     width: 550px;
     height: 30px;
@@ -78,6 +74,7 @@ footer button {
 }
 .lineThrow {
     text-decoration: line-through;
+    opacity: 0.5;
 }
 .visually-hidden {
     visibility: hidden;
