@@ -1,6 +1,8 @@
 const input = document.getElementById('mainInput');
 const ulItems = document.getElementById('ulItems');
 const footer = document.querySelector('.footer');
+const btnShowActive = document.querySelector('.showActive');
+const btnShowAll = document.querySelector('.showAll');
 
 let todoList = [];
 
@@ -10,7 +12,7 @@ const checkFooter = () => {
     } else {footer.classList.add('visually-hidden')}
 };
 
-function renderItem(task, index) {
+function renderItem(task) {
     const {value, checked = false} = task;      //деструктуризация
     const li = document.createElement('li');
     li.classList.add('item');
@@ -96,5 +98,21 @@ function loadTodoFromStorage() {
     }
     checkFooter();
 }
+
+const clearTaskListView = () => ulItems.innerHTML = '';
+
+const handleShowActiveTasks = () => {
+    clearTaskListView();
+    todoList.filter(elem => !elem.checked).forEach(renderItem);
+};
+
+btnShowActive.addEventListener('click', handleShowActiveTasks);
+
+const handleShowAllClick = () => {
+    clearTaskListView();
+    renderTodoList();
+}
+
+btnShowAll.addEventListener('click', handleShowAllClick);
 
 document.addEventListener('DOMContentLoaded', loadTodoFromStorage);
