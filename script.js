@@ -3,6 +3,7 @@ const ulItems = document.getElementById('ulItems');
 const footer = document.querySelector('.footer');
 const btnShowActive = document.querySelector('.showActive');
 const btnShowAll = document.querySelector('.showAll');
+const btnShowCompleted = document.querySelector('.showCompleted');
 
 let todoList = [];
 
@@ -101,18 +102,23 @@ function loadTodoFromStorage() {
 
 const clearTaskListView = () => ulItems.innerHTML = '';
 
+const handleShowAllTasks = () => {
+    clearTaskListView();
+    renderTodoList();
+}
+
 const handleShowActiveTasks = () => {
     clearTaskListView();
     todoList.filter(elem => !elem.checked).forEach(renderItem);
 };
 
+// const handleShowOnlyCompleted = () => {
+//    
+// }
+
+btnShowAll.addEventListener('click', handleShowAllTasks);
 btnShowActive.addEventListener('click', handleShowActiveTasks);
+// btnShowCompleted.addEventListener('click', handleShowOnlyCompleted);
 
-const handleShowAllClick = () => {
-    clearTaskListView();
-    renderTodoList();
-}
-
-btnShowAll.addEventListener('click', handleShowAllClick);
 
 document.addEventListener('DOMContentLoaded', loadTodoFromStorage);
