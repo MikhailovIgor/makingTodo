@@ -1,67 +1,106 @@
 const input = document.getElementById('mainInput');
 const ulItems = document.getElementById('ulItems');
+const footer = document.querySelector('.footer');
 
-const taskList = [];
+let todoList = [];
 
-function createItem(value) {
+const checkFooter = () => {
+    if(todoList.length > 0) {
+        footer.classList.remove('visually-hidden')
+    }else {footer.classList.add('visually-hidden')}
+};
+
+function renderItem(task, index) {
+    const {value, checked = false} = task;      //деструктуризация
     const li = document.createElement('li');
     li.classList.add('item');
 
-    const text = document.createElement('span');
+    const text = document.createElement('label');
     text.classList.add('text');
     text.append(value);
 
     const checkbox = document.createElement('input');
     checkbox.setAttribute('type', 'checkbox');
+    if(checked) {
+        checkbox.setAttribute('checked', '');
+        text.classList.add('lineThrow');
+    }
 
     const delBtn = document.createElement('button');
     delBtn.classList.add('delete');
-    delBtn.innerText = 'DEL';
+
+    delBtn.innerText = 'X';
 
     ulItems.appendChild(li).append(checkbox, text, delBtn);
-    deleteItem(delBtn);
-    checkedItem(checkbox);
+
+    deleteItem(delBtn, task);
+    checkedItem(checkbox, index);
 }
 
-input.addEventListener('keydown', (event) => {
-    if(event.code === "Enter" && input.value !== '') {
-        createItem(input.value);
-        localStorage.setItem('todo', ulItems.innerHTML);
+function saveTask({value, checked = false}) {
+    todoList.push({
+        checked: checked,
+        value: value
+    });
+    checkFooter();
+    saveDataToLS();
+}
+
+const saveDataToLS = () => localStorage.setItem('todo', JSON.stringify(todoList));
+
+const handleSaveTask = event => {
+    if (event.code === "Enter" && input.value !== '') {
+        const newTask = {value: input.value, checked: false};
+        renderItem(newTask, todoList.length);
+        saveTask(newTask);
+
         input.value = '';
     }
-});
+};
 
-function deleteItem(btn) {
+
+
+input.addEventListener('keydown', handleSaveTask);
+
+
+function deleteItem(btn, task) {
     btn.addEventListener('click', () => {
-      btn.parentElement.remove();
-        localStorage.setItem('todo', ulItems.innerHTML);
-        //document.getElementById('clear').classList.add('visually-hidden');
-    })
-}
-
-function checkedItem(checkbox) {
-    const nextElem = checkbox.nextElementSibling;
-    checkbox.addEventListener('change', () => {
-        if(nextElem.classList.contains("lineThrow")) {
-            nextElem.classList.remove('lineThrow');
-            document.getElementById('clear').classList.add('visually-hidden');
-        } else {
-            nextElem.classList.add('lineThrow');
-            document.getElementById('clear').classList.remove('visually-hidden');
-        }
+        const removableItemIndex =  todoList.indexOf(task);
+        todoList.splice(removableItemIndex, 1);
+        saveDataToLS();
+        btn.parentElement.remove();
+        checkFooter();
     });
 }
 
-function loadTodoFromStorage() {
-    if(localStorage.getItem('todo')) {
-        ulItems.innerHTML = localStorage.getItem('todo');
+function checkedItem(checkbox, index) {
+    const nextElem = checkbox.nextElementSibling;
 
-        const allDeleteBtn = document.querySelectorAll('.delete');
-        const allCheckboxes = document.querySelectorAll('[type=checkbox]');
-
-        allDeleteBtn.forEach(deleteItem);
-        allCheckboxes.forEach(checkedItem);
-    }
+    checkbox.addEventListener('change', () => {
+        if(!checkbox.hasAttribute('checked')) {
+            todoList[index].checked = true;
+            checkbox.setAttribute('checked', true);
+            saveDataToLS();
+            nextElem.classList.add('lineThrow');
+        } else {
+            todoList[index].checked = false;
+            checkbox.removeAttribute('checked');
+            saveDataToLS();
+            nextElem.classList.remove('lineThrow');
+        }
+    })
 }
+
+const renderTodoList = () => todoList.forEach(renderItem);
+
+function loadTodoFromStorage() {
+    const todoListFromLS = JSON.parse(localStorage.getItem('todo'));
+    if (todoListFromLS) {
+        todoList = todoListFromLS;
+        renderTodoList();
+    }
+    checkFooter();
+}
+
 
 document.addEventListener('DOMContentLoaded', loadTodoFromStorage);
