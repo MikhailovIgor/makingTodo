@@ -7,7 +7,7 @@ let todoList = [];
 const checkFooter = () => {
     if(todoList.length > 0) {
         footer.classList.remove('visually-hidden')
-    }else {footer.classList.add('visually-hidden')}
+    } else {footer.classList.add('visually-hidden')}
 };
 
 function renderItem(task, index) {
@@ -34,14 +34,11 @@ function renderItem(task, index) {
     ulItems.appendChild(li).append(checkbox, text, delBtn);
 
     deleteItem(delBtn, task);
-    checkedItem(checkbox, index);
+    checkedItem(checkbox, task);
 }
 
-function saveTask({value, checked = false}) {
-    todoList.push({
-        checked: checked,
-        value: value
-    });
+function saveTask(task) {
+    todoList.push(task);
     checkFooter();
     saveDataToLS();
 }
@@ -58,10 +55,7 @@ const handleSaveTask = event => {
     }
 };
 
-
-
 input.addEventListener('keydown', handleSaveTask);
-
 
 function deleteItem(btn, task) {
     btn.addEventListener('click', () => {
@@ -73,21 +67,22 @@ function deleteItem(btn, task) {
     });
 }
 
-function checkedItem(checkbox, index) {
+function checkedItem(checkbox, task) {
     const nextElem = checkbox.nextElementSibling;
 
     checkbox.addEventListener('change', () => {
-        if(!checkbox.hasAttribute('checked')) {
-            todoList[index].checked = true;
+        const removableItemIndex = todoList.indexOf(task);
+
+        const isChecked = todoList[removableItemIndex].checked ;
+        todoList[removableItemIndex].checked = !isChecked;
+        if(!isChecked) {
             checkbox.setAttribute('checked', true);
-            saveDataToLS();
             nextElem.classList.add('lineThrow');
         } else {
-            todoList[index].checked = false;
             checkbox.removeAttribute('checked');
-            saveDataToLS();
             nextElem.classList.remove('lineThrow');
         }
+        saveDataToLS();
     })
 }
 
@@ -101,6 +96,5 @@ function loadTodoFromStorage() {
     }
     checkFooter();
 }
-
 
 document.addEventListener('DOMContentLoaded', loadTodoFromStorage);
