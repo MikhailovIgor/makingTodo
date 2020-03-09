@@ -38,13 +38,14 @@ ul {
     padding-left: 0;
 }
 #ulItems li{
+    position: relative;
     list-style-type: none;
-    border: 1px solid black;
+    border: 1px solid #ededed;
     border-radius: 3px;
     padding: 5px;
-    margin-bottom: 3px;
+
     width: 550px;
-    height: 30px;
+    background: white;
 }
 .done {
     width: 30px;
@@ -79,3 +80,6 @@ footer button {
 .visually-hidden {
     visibility: hidden;
 }
+.delete {
+     /*visibility: hidden;*/
+ }
