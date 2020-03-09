@@ -112,9 +112,10 @@ const handleShowActiveTasks = () => {
     todoList.filter(elem => !elem.checked).forEach(renderItem);
 };
 
-// const handleShowOnlyCompleted = () => {
-//    
-// }
+const handleShowOnlyCompleted = () => {
+    clearTaskListView();
+    todoList.filter(elem => elem.checked).forEach(renderItem);
+}
 
 btnShowAll.addEventListener('click', handleShowAllTasks);
 btnShowActive.addEventListener('click', handleShowActiveTasks);
