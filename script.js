@@ -119,7 +119,7 @@ const handleShowOnlyCompleted = () => {
 
 btnShowAll.addEventListener('click', handleShowAllTasks);
 btnShowActive.addEventListener('click', handleShowActiveTasks);
-// btnShowCompleted.addEventListener('click', handleShowOnlyCompleted);
+btnShowCompleted.addEventListener('click', handleShowOnlyCompleted);
 
 
 document.addEventListener('DOMContentLoaded', loadTodoFromStorage);
