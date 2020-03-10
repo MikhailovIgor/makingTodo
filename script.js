@@ -105,7 +105,7 @@ const clearTaskListView = () => ulItems.innerHTML = '';
 const handleShowAllTasks = () => {
     clearTaskListView();
     renderTodoList();
-}
+};
 
 const handleShowActiveTasks = () => {
     clearTaskListView();
@@ -115,11 +115,19 @@ const handleShowActiveTasks = () => {
 const handleShowOnlyCompleted = () => {
     clearTaskListView();
     todoList.filter(elem => elem.checked).forEach(renderItem);
-}
+};
+
+const  handleClearCompleted = () => {
+    clearTaskListView();
+
+    todoList = todoList.filter(item => !item.checked);
+
+    saveDataToLS();
+    renderTodoList();
+};
 
 btnShowAll.addEventListener('click', handleShowAllTasks);
 btnShowActive.addEventListener('click', handleShowActiveTasks);
 btnShowCompleted.addEventListener('click', handleShowOnlyCompleted);
-
 
 document.addEventListener('DOMContentLoaded', loadTodoFromStorage);
