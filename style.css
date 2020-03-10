@@ -25,14 +25,9 @@ h1 {
     justify-content: space-between;
     align-items: center;
 }
-.item input {
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-}
 input {
     width: 550px;
-    height: 30px;
+    min-height: 40px;
 }
 ul {
     padding-left: 0;
@@ -40,17 +35,29 @@ ul {
 #ulItems li{
     position: relative;
     list-style-type: none;
-    border: 1px solid #ededed;
+    border: 1px solid #e6e6e6;
     border-radius: 3px;
     padding: 5px;
-
     width: 550px;
-    background: white;
+    background: #f0f0f0;
+}
+.notDone {
+    min-width: 40px;
+    min-height: 40px;
+    background-image: url("images/icons8.svg");
+    background-size: contain;
+}
+.notDone:hover {
+    transform: scale(1.1,1.1);
 }
 .done {
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    background-image: url("images/icons8-checked.svg");
+    background-size: contain;
+}
+.done:hover {
+    transform: scale(1.1,1.1);
 }
 .counter {
     flex-basis: 25%;
@@ -81,5 +88,16 @@ footer button {
     visibility: hidden;
 }
 .delete {
-     /*visibility: hidden;*/
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    min-width: 40px;
+    min-height: 40px;
+    border: 0;
+    border-radius: 0;
+    background-image: url("images/icon-del.svg");
+    background-size: contain;
  }
+.delete:hover {
+    transform: scale(1.1,1.1);
+}
