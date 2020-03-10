@@ -1,8 +1,16 @@
-body {
+* {
+    box-sizing: border-box;
     margin: 0;
+    padding: 0;
+    -ms-overflow-style: none;  /* IE 10+ */
+    scrollbar-width: none; /* Firefox */
+}
+
+body {
     min-width: 400px;
     background: #f5f5f5;
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+
 }
 h1 {
     text-align: center;
@@ -28,6 +36,20 @@ h1 {
 input {
     width: 550px;
     min-height: 40px;
+    padding-left: 20px;
+    border: 1px solid #e6e6e6;
+}
+input::-webkit-input-placeholder {
+    color: gray;
+    font-style: italic;
+    font-size: 18px;
+}
+input:hover::-webkit-input-placeholder {opacity: 50%}
+.main {
+    width: 550px;
+    height: 500px;
+    /*overflow: hidden;*/
+    overflow-y: -moz-scrollbars-none;
 }
 ul {
     padding-left: 0;
@@ -38,14 +60,14 @@ ul {
     border: 1px solid #e6e6e6;
     border-radius: 3px;
     padding: 5px;
-    width: 550px;
+    width: 100%;
     background: #f0f0f0;
 }
 .notDone {
     min-width: 40px;
     min-height: 40px;
-    background-image: url("images/icons8.svg");
-    background-size: contain;
+    background-image: url("images/Praveen-Minimal-Outline-Time.svg");
+
 }
 .notDone:hover {
     transform: scale(1.1,1.1);
@@ -95,7 +117,7 @@ footer button {
     min-height: 40px;
     border: 0;
     border-radius: 0;
-    background-image: url("images/icon-del.svg");
+    background-image: url("images/delete.svg");
     background-size: contain;
  }
 .delete:hover {
