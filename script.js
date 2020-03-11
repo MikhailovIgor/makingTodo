@@ -1,16 +1,19 @@
-const input = document.getElementById('mainInput');
+const input = document.querySelector('.mainInput');
 const ulItems = document.getElementById('ulItems');
 const footer = document.querySelector('.footer');
 const btnShowActive = document.querySelector('.showActive');
 const btnShowAll = document.querySelector('.showAll');
 const btnShowCompleted = document.querySelector('.showCompleted');
+const clearCompleted = document.getElementById('clear');
 
 let todoList = [];
 
 const checkFooter = () => {
-    if(todoList.length > 0) {
-        footer.classList.remove('visually-hidden')
-    } else {footer.classList.add('visually-hidden')}
+    if(todoList.length) {
+        footer.classList.remove('visually-hidden');
+    } else {
+        footer.classList.add('visually-hidden');
+    }
 };
 
 function renderItem(task) {
@@ -20,19 +23,19 @@ function renderItem(task) {
 
     const text = document.createElement('label');
     text.classList.add('text');
+    text.classList.add('notDone');
     text.append(value);
 
     const checkbox = document.createElement('input');
+    checkbox.classList.add('checkInput');
     checkbox.setAttribute('type', 'checkbox');
     if(checked) {
         checkbox.setAttribute('checked', '');
-        text.classList.add('lineThrow');
+        text.classList.add('done');
     }
 
     const delBtn = document.createElement('button');
     delBtn.classList.add('delete');
-
-    delBtn.innerText = 'X';
 
     ulItems.appendChild(li).append(checkbox, text, delBtn);
 
@@ -49,7 +52,7 @@ function saveTask(task) {
 const saveDataToLS = () => localStorage.setItem('todo', JSON.stringify(todoList));
 
 const handleSaveTask = event => {
-    if (event.code === "Enter" && input.value !== '') {
+    if (event.code === "Enter" && input.value.length) {
         const newTask = {value: input.value, checked: false};
         renderItem(newTask, todoList.length);
         saveTask(newTask);
@@ -75,18 +78,19 @@ function checkedItem(checkbox, task) {
 
     checkbox.addEventListener('change', () => {
         const removableItemIndex = todoList.indexOf(task);
-
+        debugger
         const isChecked = todoList[removableItemIndex].checked ;
         todoList[removableItemIndex].checked = !isChecked;
         if(!isChecked) {
             checkbox.setAttribute('checked', true);
-            nextElem.classList.add('lineThrow');
+            nextElem.classList.add('done');
         } else {
             checkbox.removeAttribute('checked');
-            nextElem.classList.remove('lineThrow');
+           nextElem.classList.remove('done');
         }
+
         saveDataToLS();
-    })
+    });
 }
 
 const renderTodoList = () => todoList.forEach(renderItem);
@@ -129,5 +133,6 @@ const  handleClearCompleted = () => {
 btnShowAll.addEventListener('click', handleShowAllTasks);
 btnShowActive.addEventListener('click', handleShowActiveTasks);
 btnShowCompleted.addEventListener('click', handleShowOnlyCompleted);
+clearCompleted.addEventListener('click', handleClearCompleted);
 
 document.addEventListener('DOMContentLoaded', loadTodoFromStorage);
