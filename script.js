@@ -93,17 +93,6 @@ function checkedItem(checkbox, task) {
     });
 }
 
-const renderTodoList = () => todoList.forEach(renderItem);
-
-function loadTodoFromStorage() {
-    const todoListFromLS = JSON.parse(localStorage.getItem('todo'));
-    if (todoListFromLS) {
-        todoList = todoListFromLS;
-        renderTodoList();
-    }
-    checkFooter();
-}
-
 const clearTaskListView = () => ulItems.innerHTML = '';
 
 const handleShowAllTasks = () => {
@@ -135,4 +124,15 @@ btnShowActive.addEventListener('click', handleShowActiveTasks);
 btnShowCompleted.addEventListener('click', handleShowOnlyCompleted);
 clearCompleted.addEventListener('click', handleClearCompleted);
 
-document.addEventListener('DOMContentLoaded', loadTodoFromStorage);
+const renderTodoList = () => todoList.forEach(renderItem);
+
+const loadTodoFromStorage = () => {
+    const todoListFromLS = JSON.parse(localStorage.getItem('todo'));
+    if (todoListFromLS) {
+        todoList = todoListFromLS;
+        renderTodoList();
+    }
+    checkFooter();
+};
+
+loadTodoFromStorage();
