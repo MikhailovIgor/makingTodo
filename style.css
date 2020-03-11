@@ -47,9 +47,8 @@ input::-webkit-input-placeholder {
 input:hover::-webkit-input-placeholder {opacity: 50%}
 .main {
     width: 550px;
-    height: 500px;
-    /*overflow: hidden;*/
-    overflow-y: -moz-scrollbars-none;
+    max-height: 400px;
+    overflow-y: scroll;
 }
 ul {
     padding-left: 0;
@@ -59,7 +58,7 @@ ul {
     list-style-type: none;
     border: 1px solid #e6e6e6;
     border-radius: 3px;
-    padding: 5px;
+    padding: 4px;
     width: 100%;
     background: #f0f0f0;
 }
@@ -94,21 +93,39 @@ ul {
 #clear:hover {
     text-decoration: underline;
 }
+
 footer {
     width: 550px;
     display: flex;
     justify-content: space-between;
+    padding: 10px;
+    border-bottom: 1px solid gray;
 }
+
 footer button {
     cursor: pointer;
+    padding: 0 5px;
+    font: inherit;
+    color: inherit;
+    background-color: transparent;
+    border: 1px solid transparent;
+
 }
+
+footer button:hover {
+    border: 1px solid #FF697B;
+    border-radius: 3px;
+}
+
 .lineThrow {
     text-decoration: line-through;
     opacity: 0.5;
 }
+
 .visually-hidden {
     visibility: hidden;
 }
+
 .delete {
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -119,7 +136,7 @@ footer button {
     border-radius: 0;
     background-image: url("images/delete.svg");
     background-size: contain;
- }
+}
 .delete:hover {
     transform: scale(1.1,1.1);
 }
